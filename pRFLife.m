@@ -71,10 +71,18 @@ for iPrefit = 1:prefit.n
   prefit.response(iPrefit,:) = getModelResponse(stimImage,prefit.x(iPrefit),prefit.y(iPrefit),prefit.rfWidth(iPrefit),canonicalHRF,scanDims(4));
 end
 
+parpool(8);
+
 % now cycle over voxels in mask and do fit - for now, just do a prefit correlation 
 % (i.e. no optimization)
-disppercent(-inf,'(pRFLife) Fitting voxels');
-for iVoxel = 1:size(mask,2)
+%disppercent(-inf,'(pRFLife) Fitting voxels');
+disp('(pRFLife) Fitting voxels');
+bestParams_all = nan(4,size(mask,2));
+
+% optimParams
+optimParams = optimset('MaxIter',1000,'Display','none');
+
+parfor iVoxel = 1:size(mask,2)
   % get tSeries
   tSeries = squeeze(d(mask(1,iVoxel),mask(2,iVoxel),mask(3,iVoxel),:));
   % normalize tSeries
@@ -85,24 +93,32 @@ for iVoxel = 1:size(mask,2)
   % pick the best model
   [maxR bestModel] = max(r);
   % get initParams
+  initParams    = nan(1,3);
   initParams(1) = prefit.x(bestModel);
   initParams(2) = prefit.y(bestModel);
   initParams(3) = prefit.rfWidth(bestModel);
+
   % optimParams
   optimParams = optimset('MaxIter',1000,'Display','none');
+
   % do non-linear fit
   [bestParams fval exitflag] = fminsearch(@getModelResidual,initParams,optimParams,tSeries,stimImage,canonicalHRF,scanDims(4));
   % get r for optimal params
   [~,r] = getModelResidual(bestParams,tSeries,stimImage,canonicalHRF,scanDims(4));
-  % put bestParams into overlays
-  x(mask(1,iVoxel),mask(2,iVoxel),mask(3,iVoxel)) = bestParams(1);
-  y(mask(1,iVoxel),mask(2,iVoxel),mask(3,iVoxel)) = bestParams(2);
-  rfWidth(mask(1,iVoxel),mask(2,iVoxel),mask(3,iVoxel)) = bestParams(3);
-  r2(mask(1,iVoxel),mask(2,iVoxel),mask(3,iVoxel)) = r^2;
-  % update disppercent
-  disppercent(iVoxel/size(mask,2));
+  
+  bestParams_all(:,iVoxel) = [bestParams(1),bestParams(2),bestParams(3), r^2]';
+
+  %disppercent(iVoxel/size(mask,2));
 end
-disppercent(inf);
+%disppercent(inf);
+
+for iVoxel = 1:size(mask,2)
+ % put bestParams into overlays
+ x(mask(1,iVoxel),mask(2,iVoxel),mask(3,iVoxel))       = bestParams_all(1,iVoxel);
+ y(mask(1,iVoxel),mask(2,iVoxel),mask(3,iVoxel))       = bestParams_all(2,iVoxel);
+ rfWidth(mask(1,iVoxel),mask(2,iVoxel),mask(3,iVoxel)) = bestParams_all(3,iVoxel);
+ r2(mask(1,iVoxel),mask(2,iVoxel),mask(3,iVoxel))      = bestParams_all(4,iVoxel);   
+end
 
 % write out the files
 if nargout < 1

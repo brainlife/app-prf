@@ -1,0 +1,7 @@
+{
+    "tseries": "testdata/func_5afc7e4e322997002773ed1b/1_bold.nii.gz",
+    "stimimage": "testdata/stimulus_5afc7db4322997002773ed1a/1_stim.nii.gz",
+    "frameperiod": "1.537",
+    "stimimageunits": " -16 -11.381 0.405 0.387",
+    "mask": ""
+}
