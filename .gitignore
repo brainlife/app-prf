@@ -1,2 +1,6 @@
 config.json
 testdata
+*.id
+.dropbox
+.DS_Store
+Icon?
