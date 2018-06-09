@@ -32,6 +32,7 @@ echo "(runpRF) stimulusId:$stimulusId boldId:$boldId"
 
 # upload stimulus
 echo "(runpRF) uploading stimulus image as datatype:$stimulusId to project:$projectId"
+echo "bl dataset upload --datatype $stimulusId --project $projectId --subject \"justinTest\" --json ./stimulus | jq -r '._id' > stim.id"
 bl dataset upload --datatype $stimulusId --project $projectId --subject "justinTest" --json ./stimulus | jq -r '._id' > stim.id
 
 # upload data
