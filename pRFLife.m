@@ -128,6 +128,11 @@ if nargout < 1
   mlrImageSave('r2.nii',r2);
 end
 
+% gzip
+if mlrIsFile('x.nii'),system('gzip x.nii');end
+if mlrIsFile('y.nii'),system('gzip y.nii');end
+if mlrIsFile('rfWidth.nii'),system('gzip rfWidth.nii');end
+if mlrIsFile('r2.nii'),system('gzip r2.nii');end
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%
 %    getModelResidual    %
