@@ -12,13 +12,13 @@
 %             stimImageUnits: A 4 vector that give the units for the stimImage as [left bottom deltaX deltaY]. That is, stimImageUnits(1), stimImageUnits(2) are the degrees in visual angle (relative to center of screen) of the left, bottom portion of the stimImage. stimImageUnits(3), stimImageUnits(4) are the difference in degrees between neighboring x and y points of the stimImage (i.e. deltaX, deltaY)
 %             mask: vector 3xk of voxels that you want to run pRF for, if empty then will do all voxels
 %%
-%       e.g.: [x y rfWidth r2] = pRFLife('tSeries.nii','stimImage.nii', 1.537, [-16, -11.381 0.405, 0.387],[10 28 16]');
-%             with no output arguments, saves files x.nii, y.nii, rfWidth.nii and r2.nii
+%       e.g.: [polarAngle eccentricity rfWidth r2] = pRFLife('tSeries.nii','stimImage.nii', 1.537, [-16, -11.381 0.405, 0.387],[10 28 16]');
+%             with no output arguments, saves files polarAngle.nii, eccentricity.nii, rfWidth.nii and r2.nii
 %
-function [x y rfWidth r2] = pRFLife(dataFilename, stimImageFilename, framePeriod, stimImageUnits, mask)
+function [polarAngle eccentricity rfWidth r2] = pRFLife(dataFilename, stimImageFilename, framePeriod, stimImageUnits, mask)
 
 % load nifti filename 
-[d h] = mlrImageLoad(dataFilename);
+[d hdr] = mlrImageLoad(dataFilename);
 
 % get scan dims
 scanDims = size(d);
@@ -120,19 +120,16 @@ for iVoxel = 1:size(mask,2)
  r2(mask(1,iVoxel),mask(2,iVoxel),mask(3,iVoxel))      = bestParams_all(4,iVoxel);   
 end
 
+% convert to polarAngle eccentricity
+[polarAngle eccentricity] = cart2pol(x,y);
+
 % write out the files
 if nargout < 1
-  mlrImageSave('x.nii',x);
-  mlrImageSave('y.nii',y);
-  mlrImageSave('rfWidth.nii',rfWidth);
-  mlrImageSave('r2.nii',r2);
+  mlrImageSave('polarAngle.nii.gz',polarAngle,hdr);
+  mlrImageSave('eccentricity.nii.gz',eccentricity,hdr);
+  mlrImageSave('rfWidth.nii.gz',rfWidth,hdr);
+  mlrImageSave('r2.nii.gz',r2,hdr);
 end
-
-% gzip
-if mlrIsFile('x.nii'),system('gzip x.nii');end
-if mlrIsFile('y.nii'),system('gzip y.nii');end
-if mlrIsFile('rfWidth.nii'),system('gzip rfWidth.nii');end
-if mlrIsFile('r2.nii'),system('gzip r2.nii');end
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%
 %    getModelResidual    %
@@ -158,6 +155,13 @@ rf = exp(-((stimImage.x-x).^2 + (stimImage.y-y).^2)/(2*rfWidth^2));
 
 % loop as a matrix operation it will generally speed things up significantly
 modelNeuralResponse = squeeze(sum(sum(stimImage.im .* repmat(rf,1,1,n))));
+
+%% FIX:For testing with older versions of matlab - use this instead of above
+%for i = 1:n
+%  modelNeuralResponse(i) = sum(sum(stimImage.im(:,:,i) .* rf));
+%end
+%modelNeuralResponse = modelNeuralResponse';
+
 % do the convolution
 modelBoldResponse = conv(modelNeuralResponse,canonicalHRF.hrf);
 % trim length
