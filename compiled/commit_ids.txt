@@ -1,0 +1,115 @@
+/N/u/brlife/git/encode
+commit c6d1d676f2739ef3fa43147128452fe5bbcad7cf
+Author: Cesar Caiafa <ccaiafa@gmail.com>
+Date:   Wed Sep 6 17:26:38 2017 -0400
+
+    batch Windows version debugged
+/N/u/brlife/git/vistasoft
+commit 7e4a5c58f79c8594a70892059e6259eaa8f6f378
+Author: Brian Wandell <wandell@stanford.edu>
+Date:   Thu Jul 5 16:25:28 2018 -0700
+
+    Data management
+/N/u/brlife/git/jsonlab
+commit 474d8c824800b5f2109c08f989085cb961acdbe3
+Merge: ae7a5d9 38b24fb
+Author: Qianqian Fang <fangqq@gmail.com>
+Date:   Wed Sep 6 13:01:57 2017 -0400
+
+    Merge pull request #41 from dasantonym/master
+    
+    added package.json to be able to intall via npm package manager
+/N/u/kitchell/Karst/Applications/mba
+commit 20f2d2bf19bda5ff6faaf9d783314f612e1f1021
+Merge: eadde9e 67e3b63
+Author: francopestilli <frakkopesto@gmail.com>
+Date:   Fri Jan 13 17:07:45 2017 -0500
+
+    Merge branch 'master' of https://github.com/francopestilli/mba
+/N/u/brlife/git/wma
+commit b0c8e688ed7209dc5707bdaf0dbff69077e0eb5d
+Author: DanNBullock <dnbulloc@umail.iu.edu>
+Date:   Thu Jul 5 17:12:21 2018 -0400
+
+    Update bsc_reconcileClassifications.m
+    
+    Reports added for debugging purposes
+compiling with following env
+MODULE_VERSION_STACK=3.2.10
+MKLROOT=/N/soft/rhel7/intel/18.0.2/compilers_and_libraries_2018.2.199/linux/mkl
+LAST_GO_PATH_INDEX=0
+MANPATH=/N/soft/rhel7/vim/8.0/share/man:/N/soft/rhel7/singularity/2.4.5/share/man:/N/soft/rhel7/nodejs/node-v8.9.0-linux-x64/share/man:/N/soft/rhel7/git/gnu/2.13.0/share/man:/N/soft/rhel7/perl/gnu/5.24.1/man:/N/soft/rhel7/python/2.7.13a/share/man:/N/soft/rhel7/intel/18.0.2/man/common:/N/soft/rhel7/intel/18.0.2/compilers_and_libraries_2018.2.199/linux/mpi/man:/N/soft/rhel7/intel/18.0.2/documentation_2018/en/debugger//gdb-ia/man/:/N/soft/rhel7/intel/18.0.2/documentation_2018/en/debugger//gdb-igfx/man/:/N/soft/rhel7/gcc/6.3.0/share/man:/opt/moab/share/man:
+LPATH=/N/soft/rhel7/gcc/6.3.0/lib64:/N/soft/rhel7/gcc/6.3.0/lib
+QUOTA_FILE=/N/dc2/projects/hpc/quotas/quota_list.txt
+XDG_SESSION_ID=19352
+HOSTNAME=h1.carbonate.uits.iu.edu
+INTEL_LICENSE_FILE=/N/soft/rhel7/intel/licenses
+IPPROOT=/N/soft/rhel7/intel/18.0.2/compilers_and_libraries_2018.2.199/linux/ipp
+HPSS_PRINCIPAL=hayashis
+SHELL=/bin/bash
+TERM=xterm-256color
+HISTSIZE=1000
+SSH_CLIENT=140.182.72.104 40706 22
+GDBSERVER_MIC=/N/soft/rhel7/intel/18.0.2/debugger_2018/gdb/targets/intel64/x200/bin/gdbserver
+PERL5LIB=/opt/moab/lib/perl5
+LIBRARY_PATH=/N/soft/rhel7/intel/18.0.2/compilers_and_libraries_2018.2.199/linux/ipp/lib/intel64:/N/soft/rhel7/intel/18.0.2/compilers_and_libraries_2018.2.199/linux/compiler/lib/intel64_lin:/N/soft/rhel7/intel/18.0.2/compilers_and_libraries_2018.2.199/linux/mkl/lib/intel64_lin:/N/soft/rhel7/intel/18.0.2/compilers_and_libraries_2018.2.199/linux/tbb/lib/intel64/gcc4.7:/N/soft/rhel7/intel/18.0.2/compilers_and_libraries_2018.2.199/linux/daal/lib/intel64_lin
+SSH_TTY=/dev/pts/18
+USER=hayashis
+LS_COLORS=rs=0:di=38;5;27:ln=38;5;51:mh=44;38;5;15:pi=40;38;5;11:so=38;5;13:do=38;5;5:bd=48;5;232;38;5;11:cd=48;5;232;38;5;3:or=48;5;232;38;5;9:mi=05;48;5;232;38;5;15:su=48;5;196;38;5;15:sg=48;5;11;38;5;16:ca=48;5;196;38;5;226:tw=48;5;10;38;5;16:ow=48;5;10;38;5;21:st=48;5;21;38;5;15:ex=38;5;34:*.tar=38;5;9:*.tgz=38;5;9:*.arc=38;5;9:*.arj=38;5;9:*.taz=38;5;9:*.lha=38;5;9:*.lz4=38;5;9:*.lzh=38;5;9:*.lzma=38;5;9:*.tlz=38;5;9:*.txz=38;5;9:*.tzo=38;5;9:*.t7z=38;5;9:*.zip=38;5;9:*.z=38;5;9:*.Z=38;5;9:*.dz=38;5;9:*.gz=38;5;9:*.lrz=38;5;9:*.lz=38;5;9:*.lzo=38;5;9:*.xz=38;5;9:*.bz2=38;5;9:*.bz=38;5;9:*.tbz=38;5;9:*.tbz2=38;5;9:*.tz=38;5;9:*.deb=38;5;9:*.rpm=38;5;9:*.jar=38;5;9:*.war=38;5;9:*.ear=38;5;9:*.sar=38;5;9:*.rar=38;5;9:*.alz=38;5;9:*.ace=38;5;9:*.zoo=38;5;9:*.cpio=38;5;9:*.7z=38;5;9:*.rz=38;5;9:*.cab=38;5;9:*.jpg=38;5;13:*.jpeg=38;5;13:*.gif=38;5;13:*.bmp=38;5;13:*.pbm=38;5;13:*.pgm=38;5;13:*.ppm=38;5;13:*.tga=38;5;13:*.xbm=38;5;13:*.xpm=38;5;13:*.tif=38;5;13:*.tiff=38;5;13:*.png=38;5;13:*.svg=38;5;13:*.svgz=38;5;13:*.mng=38;5;13:*.pcx=38;5;13:*.mov=38;5;13:*.mpg=38;5;13:*.mpeg=38;5;13:*.m2v=38;5;13:*.mkv=38;5;13:*.webm=38;5;13:*.ogm=38;5;13:*.mp4=38;5;13:*.m4v=38;5;13:*.mp4v=38;5;13:*.vob=38;5;13:*.qt=38;5;13:*.nuv=38;5;13:*.wmv=38;5;13:*.asf=38;5;13:*.rm=38;5;13:*.rmvb=38;5;13:*.flc=38;5;13:*.avi=38;5;13:*.fli=38;5;13:*.flv=38;5;13:*.gl=38;5;13:*.dl=38;5;13:*.xcf=38;5;13:*.xwd=38;5;13:*.yuv=38;5;13:*.cgm=38;5;13:*.emf=38;5;13:*.axv=38;5;13:*.anx=38;5;13:*.ogv=38;5;13:*.ogx=38;5;13:*.aac=38;5;45:*.au=38;5;45:*.flac=38;5;45:*.mid=38;5;45:*.midi=38;5;45:*.mka=38;5;45:*.mp3=38;5;45:*.mpc=38;5;45:*.ogg=38;5;45:*.ra=38;5;45:*.wav=38;5;45:*.axa=38;5;45:*.oga=38;5;45:*.spx=38;5;45:*.xspf=38;5;45:
+LD_LIBRARY_PATH=/N/soft/rhel7/singularity/2.4.5/lib:/N/soft/rhel7/perl/gnu/5.24.1/lib:/N/soft/rhel7/python/2.7.13a/lib:/N/soft/rhel7/intel/18.0.2/compilers_and_libraries_2018.2.199/linux/compiler/lib/intel64:/N/soft/rhel7/intel/18.0.2/compilers_and_libraries_2018.2.199/linux/mpi/intel64/lib:/N/soft/rhel7/intel/18.0.2/compilers_and_libraries_2018.2.199/linux/mpi/mic/lib:/N/soft/rhel7/intel/18.0.2/compilers_and_libraries_2018.2.199/linux/ipp/lib/intel64:/N/soft/rhel7/intel/18.0.2/compilers_and_libraries_2018.2.199/linux/compiler/lib/intel64_lin:/N/soft/rhel7/intel/18.0.2/compilers_and_libraries_2018.2.199/linux/mkl/lib/intel64_lin:/N/soft/rhel7/intel/18.0.2/compilers_and_libraries_2018.2.199/linux/tbb/lib/intel64/gcc4.7:/N/soft/rhel7/intel/18.0.2/debugger_2018/iga/lib:/N/soft/rhel7/intel/18.0.2/debugger_2018/libipt/intel64/lib:/N/soft/rhel7/intel/18.0.2/compilers_and_libraries_2018.2.199/linux/daal/lib/intel64_lin:/N/soft/rhel7/gcc/6.3.0/lib64:/N/soft/rhel7/gcc/6.3.0/lib:/N/soft/rhel7/matlab/MATLAB_Compiler_Runtime/v92/runtime/glnxa64:/N/soft/rhel7/matlab/MATLAB_Compiler_Runtime/v92/bin/glnxa64:/N/soft/rhel7/matlab/MATLAB_Compiler_Runtime/v92/sys/os/glnxa64
+PSTLROOT=/N/soft/rhel7/intel/18.0.2/compilers_and_libraries_2018.2.199/linux/pstl
+SSH_AUTH_SOCK=/tmp/ssh-uIMl8Z7TJF/agent.6249
+CPATH=/N/soft/rhel7/intel/18.0.2/compilers_and_libraries_2018.2.199/linux/ipp/include:/N/soft/rhel7/intel/18.0.2/compilers_and_libraries_2018.2.199/linux/mkl/include:/N/soft/rhel7/intel/18.0.2/compilers_and_libraries_2018.2.199/linux/pstl/include:/N/soft/rhel7/intel/18.0.2/compilers_and_libraries_2018.2.199/linux/tbb/include:/N/soft/rhel7/intel/18.0.2/compilers_and_libraries_2018.2.199/linux/daal/include:/N/soft/rhel7/gcc/6.3.0/include
+NLSPATH=/N/soft/rhel7/intel/18.0.2/compilers_and_libraries_2018.2.199/linux/compiler/lib/intel64/locale/%l_%t/%N:/N/soft/rhel7/intel/18.0.2/compilers_and_libraries_2018.2.199/linux/mkl/lib/intel64_lin/locale/%l_%t/%N:/N/soft/rhel7/intel/18.0.2/debugger_2018/gdb/intel64/share/locale/%l_%t/%N
+PATH=/N/soft/rhel7/matlab/2017a/bin/:/N/u/hayashis/Carbonate/bin:/N/u/hayashis/Carbonate/git/abcd-spec/hooks/pbs:/N/soft/rhel7/vim/8.0/bin:/N/soft/rhel7/singularity/2.4.5/bin:/N/soft/rhel7/nodejs/node-v8.9.0-linux-x64/bin:/N/soft/rhel7/git/gnu/2.13.0/bin:/N/soft/rhel7/quotas:/N/soft/rhel7/perl/gnu/5.24.1/bin:/N/soft/rhel7/python/2.7.13a/bin:/N/soft/rhel7/intel/18.0.2/compilers_and_libraries_2018.2.199/linux/bin/intel64:/N/soft/rhel7/intel/18.0.2/compilers_and_libraries_2018.2.199/linux/mpi/intel64/bin:/N/soft/rhel7/gcc/6.3.0/bin:/opt/moab/bin:/usr/local/bin:/usr/bin:/usr/local/sbin:/usr/sbin:/N/u/hayashis/Carbonate/git/go
+MAIL=/var/spool/mail/hayashis
+MODULE_VERSION=3.2.10
+TBBROOT=/N/soft/rhel7/intel/18.0.2/compilers_and_libraries_2018.2.199/linux/tbb
+PWD=/N/u/hayashis/Carbonate/git/pRFLife
+_LMFILES_=/N/soft/rhel7/modules/carbonate/DEVELOPMENT/gcc/6.3.0:/N/soft/rhel7/modules/carbonate/DEVELOPMENT/intel/18.0.2:/N/soft/rhel7/modules/carbonate/DEVELOPMENT/python/2.7.13:/N/soft/rhel7/modules/carbonate/DEVELOPMENT/perl/5.24.1:/N/soft/rhel7/modules/carbonate/SYSTEM/quota/1.0:/N/soft/rhel7/modules/carbonate/DEVELOPMENT/git/2.13.0:/N/soft/rhel7/modules/carbonate/SYSTEM/core:/N/soft/rhel7/modules/carbonate/DEVELOPMENT/nodejs/8.9.0:/N/soft/rhel7/modules/carbonate/SYSTEM/singularity/2.4.5:/N/soft/rhel7/modules/carbonate/APPLICATIONS/vim/8.0:/N/soft/rhel7/modules/carbonate/STATMATH/matlab/2017a
+LANG=en_US.UTF-8
+GDB_CROSS=/N/soft/rhel7/intel/18.0.2/debugger_2018/gdb/intel64/bin/gdb-ia
+MOABHOMEDIR=/opt/moab
+MODULEPATH=/usr/share/Modules/modulefiles:/etc/modulefiles:/N/soft/rhel7/modules/carbonate/DEVELOPMENT:/N/soft/rhel7/modules/carbonate/LIFE-SCIENCES:/N/soft/rhel7/modules/carbonate/APPLICATIONS:/N/soft/rhel7/modules/carbonate/STATMATH:/N/soft/rhel7/modules/carbonate/SYSTEM
+LOADEDMODULES=gcc/6.3.0:intel/18.0.2:python/2.7.13:perl/5.24.1:quota/1.0:git/2.13.0:core:nodejs/8.9.0:singularity/2.4.5:vim/8.0:matlab/2017a
+SINGULARITY_CACHEDIR=/N/dc2/scratch/hayashis/singularity-cache-carb
+DAALROOT=/N/soft/rhel7/intel/18.0.2/compilers_and_libraries_2018.2.199/linux/daal
+HISTCONTROL=ignoredups
+MPM_LAUNCHER=/N/soft/rhel7/intel/18.0.2/debugger_2018/mpm/mic/bin/start_mpm.sh
+INTEL_PYTHONHOME=/N/soft/rhel7/intel/18.0.2/debugger_2018/python/intel64/
+HOME=/N/u/hayashis/Carbonate
+SHLVL=2
+GO_PATH_FILE=/N/u/hayashis/Carbonate/.gopathfile
+HPSS_AUTH_METHOD=keytab
+LOGNAME=hayashis
+PYTHONPATH=/N/u/hayashis/Carbonate/.local/lib/python2.7/site-packages:/N/soft/rhel7/python/2.7.13a/lib/python2.7/site-packages
+HPSS_KEYTAB_PATH=/N/u/hayashis/Carbonate/.ssh/hpss.keytab
+CVS_RSH=ssh
+SSH_CONNECTION=140.182.72.104 40706 149.165.234.129 22
+CLASSPATH=/N/soft/rhel7/intel/18.0.2/compilers_and_libraries_2018.2.199/linux/mpi/intel64/lib/mpi.jar:/N/soft/rhel7/intel/18.0.2/compilers_and_libraries_2018.2.199/linux/daal/lib/daal.jar
+MODULESHOME=/usr/share/Modules
+LESSOPEN=||/usr/bin/lesspipe.sh %s
+PKG_CONFIG_PATH=/N/soft/rhel7/intel/18.0.2/compilers_and_libraries_2018.2.199/linux/mkl/bin/pkgconfig
+PROMPT_COMMAND=__prompt_command
+INFOPATH=/N/soft/rhel7/intel/18.0.2/documentation_2018/en/debugger//gdb-ia/info/:/N/soft/rhel7/intel/18.0.2/documentation_2018/en/debugger//gdb-igfx/info/:/N/soft/rhel7/gcc/6.3.0/share/info
+DISPLAY=localhost:16.0
+XDG_RUNTIME_DIR=/run/user/740536
+I_MPI_ROOT=/N/soft/rhel7/intel/18.0.2/compilers_and_libraries_2018.2.199/linux/mpi
+FREESURFER_LICENSE=hayashis@iu.edu 29511 *CPmh9xvKQKHE FSg0ijTusqaQc
+BASH_FUNC_module()=() {  MODULECMD="/usr/bin/modulecmd";
+ LIST_BEFORE=(`${MODULECMD} bash --terse list 2>&1 | tail -n +2`);
+ WC_BEFORE=${#LIST_BEFORE[@]};
+ eval `${MODULECMD} bash $*`;
+ LIST_AFTER=(`${MODULECMD} bash --terse list 2>&1 | tail -n +2`);
+ WC_AFTER=${#LIST_AFTER[@]};
+ if [ $WC_AFTER -gt $WC_BEFORE ]; then
+ LIST_DIFF=(`diff -n <(printf "%s\n" "${LIST_BEFORE[@]}") <(printf "%s\n" "${LIST_AFTER[@]}") | tail -n +2`);
+ for x in "${LIST_DIFF[@]}";
+ do
+ logger -t module_cmd -p local6.info -- $USER load $x;
+ done;
+ else
+ logger -t module_cmd -p local6.info -- $USER $*;
+ fi
+}
+_=/usr/bin/env

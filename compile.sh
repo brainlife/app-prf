@@ -14,8 +14,9 @@ echo "/N/u/kitchell/Karst/Applications/mba" >> $log
 echo "/N/u/brlife/git/wma" >> $log
 (cd /N/u/brlife/git/wma && git log -1) >> $log
 
-echo "compiling with following env" >> $log
-env >> $log
+#maybe dangerous
+#echo "compiling with following env" >> $log
+#env >> $log
 
 cat > build.m <<END
 addpath(genpath('/N/u/brlife/git/vistasoft'))
