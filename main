@@ -5,8 +5,6 @@
 
 [ $PBS_O_WORKDIR ] && cd $PBS_O_WORKDIR
 
-module load singularity 2> /dev/null
-
 echo "running pRF"
 singularity exec -e docker://brainlife/mcr:neurodebian1604-r2017a ./compiled/main
 if [ ! -s x.nii ];
