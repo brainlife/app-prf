@@ -71,7 +71,7 @@ for iPrefit = 1:prefit.n
   prefit.response(iPrefit,:) = getModelResponse(stimImage,prefit.x(iPrefit),prefit.y(iPrefit),prefit.rfWidth(iPrefit),canonicalHRF,scanDims(4));
 end
 
-parpool(8);
+parpool(str2num(getenv('PROCESS_COUNT')));
 
 % now cycle over voxels in mask and do fit - for now, just do a prefit correlation 
 % (i.e. no optimization)
