@@ -1,7 +1,9 @@
 {
-    "tseries": "testdata/func_5afc7e4e322997002773ed1b/1_bold.nii.gz",
-    "stimimage": "testdata/stimulus_5afc7db4322997002773ed1a/1_stim.nii.gz",
-    "frameperiod": "1.537",
-    "stimimageunits": " -16 -11.381 0.405 0.387",
+    "tseries": "/N/u/hayashis/Karst/testdata/prf1/bold.nii.gz",
+    "stimimage": "/N/u/hayashis/Karst/testdata/prf1/stim.nii.gz",
+    "frameperiod": 1.537,
+    "stimimageunits-dep": " -16 -11.381 0.405 0.387",
+    "visual_angle_width": 16,
+    "visual_angle_height": 11.381,
     "mask": ""
 }

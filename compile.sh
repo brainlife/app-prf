@@ -1,5 +1,5 @@
 #!/bin/bash
-module load matlab/2017a
+module unload matlab && module load matlab/2017a
 
 log=compiled/commit_ids.txt
 true > $log

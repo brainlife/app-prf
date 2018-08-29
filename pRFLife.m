@@ -15,13 +15,14 @@
 %       e.g.: [polarAngle eccentricity rfWidth r2] = pRFLife('tSeries.nii','stimImage.nii', 1.537, [-16, -11.381 0.405, 0.387],[10 28 16]');
 %             with no output arguments, saves files polarAngle.nii, eccentricity.nii, rfWidth.nii and r2.nii
 %
-function [polarAngle eccentricity rfWidth r2] = pRFLife(dataFilename, stimImageFilename, framePeriod, stimImageUnits, mask)
+function [polarAngle eccentricity rfWidth r2] = pRFLife(dataFilename, stimImageFilename, framePeriod, visual_angle_width, visual_angle_height, mask)
 
 % load nifti filename 
 [d hdr] = mlrImageLoad(dataFilename);
+disp(hdr)
 
 % get scan dims
-scanDims = size(d);
+scanDims = size(d)
 
 % create output images
 x = nan(scanDims(1:3));
@@ -29,8 +30,11 @@ y = nan(scanDims(1:3));
 rfWidth = nan(scanDims(1:3));
 r2 = nan(scanDims(1:3));
 
-% open stim image
 stimImage.im = mlrImageLoad(stimImageFilename);
+stimDims = size(stimImage.im)
+
+stimImageUnits = [ -visual_angle_width; -visual_angle_height; 2*visual_angle_width/stimDims(1); 2*visual_angle_height/stimDims(2) ]
+
 stimImage.x = stimImageUnits(1):stimImageUnits(3):((size(stimImage.im,2)-1)*stimImageUnits(3)+stimImageUnits(1));
 stimImage.y = stimImageUnits(2):stimImageUnits(4):((size(stimImage.im,1)-1)*stimImageUnits(4)+stimImageUnits(2));
 stimImage.t= 0:framePeriod:(scanDims(4)-1)*framePeriod;
