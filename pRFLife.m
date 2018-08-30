@@ -1,7 +1,7 @@
 % pRF.m
 %
 %        $Id:$ 
-%      usage: [x y rfWidth r2] = pRFLife(dataFilename, stimImageFilename,framePeriod,stimImageUnits,mask);
+%      usage: [x y rfWidth r2] = pRFLife(dataFilename, stimImageFilename,framePeriod, visual_angle_width, visual_angle_height, mask);
 %         by: justin gardner
 %       date: 05/04/2018
 %    purpose: compute pRF analysis given nifti file of data, nifit
@@ -9,10 +9,11 @@
 %             
 %             datafilename: nifti file containing functional data from pRF scan (dimensions x,y,z,t)
 %             stimImageFilename: stimulus movie (dimensions x, y, t) where x and y are whatever resolution you want for your stim image and t needs to be the same as the datafile
-%             stimImageUnits: A 4 vector that give the units for the stimImage as [left bottom deltaX deltaY]. That is, stimImageUnits(1), stimImageUnits(2) are the degrees in visual angle (relative to center of screen) of the left, bottom portion of the stimImage. stimImageUnits(3), stimImageUnits(4) are the difference in degrees between neighboring x and y points of the stimImage (i.e. deltaX, deltaY)
+%             visual_angle_width: size of stimImage width in degrees of visual angle
+%             visual_angle_height: size of stimImage height in degrees of visual angle
 %             mask: vector 3xk of voxels that you want to run pRF for, if empty then will do all voxels
 %%
-%       e.g.: [polarAngle eccentricity rfWidth r2] = pRFLife('tSeries.nii','stimImage.nii', 1.537, [-16, -11.381 0.405, 0.387],[10 28 16]');
+%       e.g.: [polarAngle eccentricity rfWidth r2] = pRFLife('tSeries.nii','stimImage.nii', 1.537, 32, 22, [10 28 16]');
 %             with no output arguments, saves files polarAngle.nii, eccentricity.nii, rfWidth.nii and r2.nii
 %
 function [polarAngle eccentricity rfWidth r2] = pRFLife(dataFilename, stimImageFilename, framePeriod, visual_angle_width, visual_angle_height, mask)
@@ -33,7 +34,8 @@ r2 = nan(scanDims(1:3));
 stimImage.im = mlrImageLoad(stimImageFilename);
 stimDims = size(stimImage.im)
 
-stimImageUnits = [ -visual_angle_width; -visual_angle_height; 2*visual_angle_width/stimDims(1); 2*visual_angle_height/stimDims(2) ]
+% convert input parameters to stimImageUnits: A 4 vector that give the units for the stimImage as [left bottom deltaX deltaY]. That is, stimImageUnits(1), stimImageUnits(2) are the degrees in visual angle (relative to center of screen) of the left, bottom portion of the stimImage. stimImageUnits(3), stimImageUnits(4) are the difference in degrees between neighboring x and y points of the stimImage (i.e. deltaX, deltaY)
+stimImageUnits = [ -(visual_angle_width/2); -(visual_angle_height/2); visual_angle_width/stimDims(1); visual_angle_height/stimDims(2) ]
 
 stimImage.x = stimImageUnits(1):stimImageUnits(3):((size(stimImage.im,2)-1)*stimImageUnits(3)+stimImageUnits(1));
 stimImage.y = stimImageUnits(2):stimImageUnits(4):((size(stimImage.im,1)-1)*stimImageUnits(4)+stimImageUnits(2));
