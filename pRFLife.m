@@ -11,9 +11,11 @@
 %             stimImageFilename: stimulus movie (dimensions x, y, t) where x and y are whatever resolution you want for your stim image and t needs to be the same as the datafile
 %             visual_angle_width: size of stimImage width in degrees of visual angle
 %             visual_angle_height: size of stimImage height in degrees of visual angle
-%             mask: vector 3xk of voxels that you want to run pRF for, if empty then will do all voxels
+%             mask: name of mask file which should be nifti format with the same dimensions (x,y,z) of data
+%                   with 0 and 1s of which voxels should or should not be fit, respectively. Also can be a 
+%                   vector 3xk of voxels that you want to run pRF for, if empty then will do all voxels. 
 %%
-%       e.g.: [polarAngle eccentricity rfWidth r2] = pRFLife('tSeries.nii','stimImage.nii', 1.537, 32, 22, [10 28 16]');
+%       e.g.: [polarAngle eccentricity rfWidth r2] = pRFLife('task/bold.nii.gz','stimulus/stim.nii.gz', 1.537, 32, 22, 'task/mask.nii.gz');
 %             with no output arguments, saves files polarAngle.nii, eccentricity.nii, rfWidth.nii and r2.nii
 %
 function [polarAngle eccentricity rfWidth r2] = pRFLife(dataFilename, stimImageFilename, framePeriod, visual_angle_width, visual_angle_height, mask)
@@ -61,8 +63,15 @@ canonicalHRF  = getCanonicalHRF(params,framePeriod);
 % init prefitResponse
 prefit.response = nan(prefit.n,scanDims(4));
 
+% check if mask is a string
+if isstr(mask)
+  % then open it as a file
+  [maskd maskhdr] = mlrImageLoad(mask);
+  % convert the mask image to coordinates
+  mask = [];
+  [mask(1,:) mask(2,:) mask(3,:)] = ind2sub(scanDims(1:3),find(maskd));
 % if the mask is empty, then do all voxels
-if isempty(mask)
+elseif isempty(mask)
   % get all coordinates
   [maskX maskY maskZ] = meshgrid(1:scanDims(1),1:scanDims(2),1:scanDims(3));
   % and put them in the mask
