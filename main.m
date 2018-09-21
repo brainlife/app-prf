@@ -10,15 +10,7 @@ end
 % load my own config.json
 config = loadjson('config.json');
 
-% check if mask manually inputted
-if isempty(config.mask)
-    display('Mask not selected. All voxels will be analyzed');
-    mask = [];
-else
-    mask = str2num(config.mask);
-end
-
 % compute pRF
-pRFLife(config.tseries, config.stimimage, config.frameperiod, config.visual_angle_width, config.visual_angle_height, mask);
+pRFLife(config.tseries, config.stimimage, config.frameperiod, config.visual_angle_width, config.visual_angle_height, config.mask);
 
 end

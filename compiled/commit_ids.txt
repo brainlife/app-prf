@@ -13,3 +13,10 @@ Author: JustinGardner <jshopsafe@me.com>
 Date:   Wed Jul 18 11:41:49 2018 -0700
 
     Fixing isFile to mlrIsFile
+/N/u/brlife/git/vistasoft
+commit cf75f1a8c037382d6a157f0a7b683a3fd424ee4c
+Merge: 8bea0b7 7e4a5c5
+Author: rokers <rokers@gmail.com>
+Date:   Fri Jul 13 17:13:01 2018 -0400
+
+    Merge branch 'master' of https://github.com/vistalab/vistasoft
