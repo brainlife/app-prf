@@ -1,7 +1,7 @@
-% pRF.m
+% pRFLife.m
 %
 %        $Id:$ 
-%      usage: [x y rfWidth r2] = pRFLife(dataFilename, stimImageFilename,framePeriod, visual_angle_width, visual_angle_height, mask);
+%      usage: [x y rfWidth r2] = pRFLife(dataFilename, stimImageFilename,framePeriod, visual_angle_width, visual_angle_height, mask, <prefitOnly=0>');
 %         by: justin gardner
 %       date: 05/04/2018
 %    purpose: compute pRF analysis given nifti file of data, nifit
@@ -14,11 +14,17 @@
 %             mask: name of mask file which should be nifti format with the same dimensions (x,y,z) of data
 %                   with 0 and 1s of which voxels should or should not be fit, respectively. Also can be a 
 %                   vector 3xk of voxels that you want to run pRF for, if empty then will do all voxels. 
+%             prefitOnly=0: Optional argument, set to 1 if you want to only run the prefit and not nonlin fit
+%                           which gives an approximate fit that does not require as much time to compute
 %%
 %       e.g.: [polarAngle eccentricity rfWidth r2] = pRFLife('task/bold.nii.gz','stimulus/stim.nii.gz', 1.537, 32, 22, 'task/mask.nii.gz');
 %             with no output arguments, saves files polarAngle.nii, eccentricity.nii, rfWidth.nii and r2.nii
 %
-function [polarAngle eccentricity rfWidth r2] = pRFLife(dataFilename, stimImageFilename, framePeriod, visual_angle_width, visual_angle_height, mask)
+function [polarAngle eccentricity rfWidth r2] = pRFLife(dataFilename, stimImageFilename, framePeriod, visual_angle_width, visual_angle_height, mask, varargin)
+
+% get optional arguments
+prefitOnly = [];
+getArgs(varargin,{'prefitOnly=0'});
 
 % load nifti filename 
 [d hdr] = mlrImageLoad(dataFilename);
@@ -44,10 +50,16 @@ stimImage.y = stimImageUnits(2):stimImageUnits(4):((size(stimImage.im,1)-1)*stim
 stimImage.t= 0:framePeriod:(scanDims(4)-1)*framePeriod;
 [stimImage.x stimImage.y] = meshgrid(stimImage.x,stimImage.y);
 
+% start parallel processes
+processCount = str2num(getenv('PROCESS_COUNT'));
+if ~isempty(processCount)
+  parpool(processCount);
+end
+
 % do prefit
-prefit.x = min(stimImage.x(:)):10:max(stimImage.x(:));
-prefit.y = min(stimImage.y(:)):10:max(stimImage.y(:));
-prefit.rfWidth = 1:2:8;
+prefit.x = min(stimImage.x(:)):0.5:max(stimImage.x(:));
+prefit.y = min(stimImage.y(:)):0.5:max(stimImage.y(:));
+prefit.rfWidth = 0.5:0.5:8;
 [prefit.x prefit.y prefit.rfWidth] = meshgrid(prefit.x,prefit.y,prefit.rfWidth);
 prefit.n = length(prefit.x(:));
 
@@ -62,6 +74,14 @@ canonicalHRF  = getCanonicalHRF(params,framePeriod);
 
 % init prefitResponse
 prefit.response = nan(prefit.n,scanDims(4));
+
+% compute prefit models
+disppercent(-inf,sprintf('(pRFLife) Computing prefit models for %i models',prefit.n));
+for iPrefit = 1:prefit.n
+  % normalize to 0 mean unit length
+  prefit.response(iPrefit,:) = getModelResponse(stimImage,prefit.x(iPrefit),prefit.y(iPrefit),prefit.rfWidth(iPrefit),canonicalHRF,scanDims(4));
+end
+disppercent(inf);
 
 % check if mask is a string
 if isstr(mask)
@@ -80,26 +100,27 @@ elseif isempty(mask)
   mask(3,:) = maskZ(:);
 end
 
-% compute prefit models
-for iPrefit = 1:prefit.n
-  % normalize to 0 mean unit length
-  prefit.response(iPrefit,:) = getModelResponse(stimImage,prefit.x(iPrefit),prefit.y(iPrefit),prefit.rfWidth(iPrefit),canonicalHRF,scanDims(4));
-end
-
-parpool(str2num(getenv('PROCESS_COUNT')));
+% compute size of mask voxels
+maskN = size(mask,2);
 
 % now cycle over voxels in mask and do fit - for now, just do a prefit correlation 
 % (i.e. no optimization)
-%disppercent(-inf,'(pRFLife) Fitting voxels');
-disp('(pRFLife) Fitting voxels');
 bestParams_all = nan(4,size(mask,2));
 
 % optimParams
 optimParams = optimset('MaxIter',1000,'Display','none');
 
-parfor iVoxel = 1:size(mask,2)
+% only keep data that we are doing the fit on
+% first reshape so that voxels are in index order
+d = reshape(d,prod(scanDims(1:3)),scanDims(4));
+% now get out only voxels in the mask
+d = d(sub2ind(scanDims(1:3),mask(1,:),mask(2,:),mask(3,:)),:);
+
+% cycle over voxels
+disppercent(-inf,sprintf('(pRFLife) Fitting %i voxels',maskN));
+parfor iVoxel = 1:maskN;
   % get tSeries
-  tSeries = squeeze(d(mask(1,iVoxel),mask(2,iVoxel),mask(3,iVoxel),:));
+  tSeries = d(iVoxel,:)';
   % normalize tSeries
   tSeries = tSeries-mean(tSeries);
   tSeries = tSeries/sqrt(sum(tSeries.^2));
@@ -113,19 +134,21 @@ parfor iVoxel = 1:size(mask,2)
   initParams(2) = prefit.y(bestModel);
   initParams(3) = prefit.rfWidth(bestModel);
 
-  % optimParams
-  optimParams = optimset('MaxIter',1000,'Display','none');
-
-  % do non-linear fit
-  [bestParams fval exitflag] = fminsearch(@getModelResidual,initParams,optimParams,tSeries,stimImage,canonicalHRF,scanDims(4));
-  % get r for optimal params
-  [~,r] = getModelResidual(bestParams,tSeries,stimImage,canonicalHRF,scanDims(4));
-  
-  bestParams_all(:,iVoxel) = [bestParams(1),bestParams(2),bestParams(3), r^2]';
-
-  %disppercent(iVoxel/size(mask,2));
+  % do the non-linear fit, but skip if prefitOnly is set
+  if ~prefitOnly
+    % do non-linear fit
+    [bestParams fval exitflag] = fminsearch(@getModelResidual,initParams,optimParams,tSeries,stimImage,canonicalHRF,scanDims(4));
+    % get r for optimal params
+    [~,r] = getModelResidual(bestParams,tSeries,stimImage,canonicalHRF,scanDims(4));
+    
+    % keep params
+    bestParams_all(:,iVoxel) = [bestParams(1),bestParams(2),bestParams(3), r^2]';
+  else
+    % keep prefit Params
+    bestParams_all(:,iVoxel) = [initParams(1),initParams(2),initParams(3), maxR^2]';
+  end
 end
-%disppercent(inf);
+disppercent(inf);
 
 for iVoxel = 1:size(mask,2)
  % put bestParams into overlays
