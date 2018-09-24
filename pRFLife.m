@@ -1,7 +1,7 @@
 % pRFLife.m
 %
 %        $Id:$ 
-%      usage: [x y rfWidth r2] = pRFLife(dataFilename, stimImageFilename,framePeriod, visual_angle_width, visual_angle_height, mask, <prefitOnly=0>');
+%      usage: [x y rfWidth r2] = pRFLife(dataFilename, stimImageFilename,framePeriod, visual_angle_width, visual_angle_height, mask, prefitOnly);
 %         by: justin gardner
 %       date: 05/04/2018
 %    purpose: compute pRF analysis given nifti file of data, nifit
@@ -14,17 +14,17 @@
 %             mask: name of mask file which should be nifti format with the same dimensions (x,y,z) of data
 %                   with 0 and 1s of which voxels should or should not be fit, respectively. Also can be a 
 %                   vector 3xk of voxels that you want to run pRF for, if empty then will do all voxels. 
-%             prefitOnly=0: Optional argument, set to 1 if you want to only run the prefit and not nonlin fit
+%             prefitOnly: set to true if you want to only run the prefit and not nonlin fit
 %                           which gives an approximate fit that does not require as much time to compute
 %%
 %       e.g.: [polarAngle eccentricity rfWidth r2] = pRFLife('task/bold.nii.gz','stimulus/stim.nii.gz', 1.537, 32, 22, 'task/mask.nii.gz');
 %             with no output arguments, saves files polarAngle.nii, eccentricity.nii, rfWidth.nii and r2.nii
 %
-function [polarAngle eccentricity rfWidth r2] = pRFLife(dataFilename, stimImageFilename, framePeriod, visual_angle_width, visual_angle_height, mask, varargin)
+function [polarAngle eccentricity rfWidth r2] = pRFLife(dataFilename, stimImageFilename, framePeriod, visual_angle_width, visual_angle_height, mask, prefitOnly)
 
 % get optional arguments
-prefitOnly = [];
-getArgs(varargin,{'prefitOnly=0'});
+%prefitOnly = [];
+%getArgs(varargin,{'prefitOnly=0'});
 
 % load nifti filename 
 [d hdr] = mlrImageLoad(dataFilename);

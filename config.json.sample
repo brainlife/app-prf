@@ -5,5 +5,6 @@
     "stimimageunits-dep": " -16 -11.381 0.405 0.387",
     "visual_angle_width": 16,
     "visual_angle_height": 11.381,
-    "mask": ""
+    "mask": "",
+    "prefitOnly": true
 }

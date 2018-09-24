@@ -11,6 +11,6 @@ end
 config = loadjson('config.json');
 
 % compute pRF
-pRFLife(config.tseries, config.stimimage, config.frameperiod, config.visual_angle_width, config.visual_angle_height, config.mask);
+pRFLife(config.tseries, config.stimimage, config.frameperiod, config.visual_angle_width, config.visual_angle_height, config.mask, config.prefitOnly);
 
 end
