@@ -163,10 +163,10 @@ end
 
 % write out the files
 if nargout < 1
-  mlrImageSave('polarAngle.nii.gz',polarAngle,hdr);
-  mlrImageSave('eccentricity.nii.gz',eccentricity,hdr);
-  mlrImageSave('rfWidth.nii.gz',rfWidth,hdr);
-  mlrImageSave('r2.nii.gz',r2,hdr);
+  mlrImageSave('prf/polarAngle.nii.gz',polarAngle,hdr);
+  mlrImageSave('prf/eccentricity.nii.gz',eccentricity,hdr);
+  mlrImageSave('prf/rfWidth.nii.gz',rfWidth,hdr);
+  mlrImageSave('prf/r2.nii.gz',r2,hdr);
 end
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%

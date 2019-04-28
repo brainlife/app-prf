@@ -24,6 +24,7 @@ time singularity exec -e docker://brainlife/fsl:5.0.9 \
     flirt -in aseg.visual.nii.gz -ref $bold -out mask.nii.gz
 
 echo "running pRF"
+mkdir -p prf
 singularity exec -e docker://brainlife/mcr:neurodebian1604-r2017a ./compiled/main
 if [ ! -s r2.nii.gz ];
 then
