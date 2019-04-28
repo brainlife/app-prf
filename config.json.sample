@@ -1,5 +1,5 @@
 {
-    "tseries": "testdata/bold.nii.gz",
+    "bold": "testdata/bold.nii.gz",
     "stimimage": "testdata/stim.nii.gz",
     "frameperiod": 1.537,
     "stimimageunits-dep": " -16 -11.381 0.405 0.387",

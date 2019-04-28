@@ -8,7 +8,7 @@ set -x
 
 export SINGULARITYENV_PROCESS_COUNT=4
 
-bold=`jq -r .tseries config.json`
+bold=`jq -r .bold config.json`
 freesurfer_dir=`jq -r .freesurfer config.json`
 
 echo "converting aparc+aseg to nii"
