@@ -1,10 +1,10 @@
 {
-    "tseries": "/N/u/hayashis/Karst/testdata/prf1/bold.nii.gz",
-    "stimimage": "/N/u/hayashis/Karst/testdata/prf1/stim.nii.gz",
+    "tseries": "testdata/bold.nii.gz",
+    "stimimage": "testdata/stim.nii.gz",
     "frameperiod": 1.537,
     "stimimageunits-dep": " -16 -11.381 0.405 0.387",
     "visual_angle_width": 16,
     "visual_angle_height": 11.381,
-    "mask": "",
+    "freesurfer": "testdata/output",
     "prefitOnly": true
 }

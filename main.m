@@ -10,7 +10,6 @@ end
 % load my own config.json
 config = loadjson('config.json');
 
-% compute pRF
-pRFLife(config.tseries, config.stimimage, config.frameperiod, config.visual_angle_width, config.visual_angle_height, config.mask, config.prefitOnly);
+pRFLife(config.bold, config.stimimage, config.frameperiod, config.visual_angle_width, config.visual_angle_height, 'mask.nii.gz', config.prefitOnly);
 
 end
