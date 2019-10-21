@@ -24,7 +24,7 @@ time singularity exec -e docker://brainlife/fsl:5.0.9 ./create_mask.sh $bold
 echo "running pRF"
 mkdir -p prf
 singularity exec -e docker://brainlife/mcr:neurodebian1604-r2017a ./compiled/main
-if [ ! -s r2.nii.gz ];
+if [ ! -s ./prf/r2.nii.gz ];
 then
 	echo "output missing"
 	exit 1
