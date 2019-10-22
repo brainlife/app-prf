@@ -1,33 +1,29 @@
 #!/bin/bash
 #PBS -l nodes=1:ppn=4,vmem=120gb,walltime=24:00:00
-#PBS -N pRF
-#PBS -V
+#PBS -N app-prf
 
 set -e
 set -x
 
+#what was this for?
 export SINGULARITYENV_PROCESS_COUNT=4
 
 bold=`jq -r .bold config.json`
 freesurfer_dir=`jq -r .freesurfer config.json`
 
-echo "converting aparc+aseg to nii"
 [ -z "$FREESURFER_LICENSE" ] && echo "Please set FREESURFER_LICENSE in .bashrc" && exit 1;
 echo $FREESURFER_LICENSE > license.txt
 #-hippocampal-subfields-T1t2 requires matlab binary to run on freeesurfer_on_mcr
-time singularity exec -e -B `pwd`/license.txt:/usr/local/freesurfer/license.txt docker://brainlife/freesurfer_on_mcr:6.0.2 \
-    mri_convert $freesurfer_dir/mri/aparc+aseg.mgz aparc+aseg.nii.gz
+time singularity exec -e -B `pwd`/license.txt:/usr/local/freesurfer/license.txt docker://brainlife/freesurfer_on_mcr:6.0.0 ./convert.sh $freesurfer_dir
 
-echo "creating mask"
 time singularity exec -e docker://brainlife/fsl:5.0.9 ./create_mask.sh $bold
 
-echo "running pRF"
-mkdir -p prf
 singularity exec -e docker://brainlife/mcr:neurodebian1604-r2017a ./compiled/main
 if [ ! -s ./prf/r2.nii.gz ];
 then
 	echo "output missing"
 	exit 1
 fi
+
 
 

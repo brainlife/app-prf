@@ -5,3 +5,12 @@ testdata
 .DS_Store
 Icon?
 build.m
+*.nii.gz
+_main
+jobid
+license.txt
+prf
+barn
+*.err
+*.log
+exit-code
