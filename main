@@ -2,6 +2,12 @@
 #PBS -l nodes=1:ppn=4,vmem=120gb,walltime=24:00:00
 #PBS -N app-prf
 
+#mrTools tries to uncompress input bold.nii.gz to bold.nii on the directory that bold.nii.gz exists (on the input directory!)
+#https://github.com/justingardner/mrTools/blob/d782afae485dd9d242f626d3ce0b7cd5a38aa318/mrUtilities/File/mlrImage/mlrImageLoad.m#L134
+#modifying input directory is a bad practice, so to work around it, I am going to symlink the input bold here and use local path
+ln -s $(jq -r .bold config.json) bold.nii.gz
+ln -s $(jq -r .stimimage config.json) stim.nii.gz
+
 set -e
 set -x
 
@@ -18,7 +24,7 @@ time singularity exec -e -B `pwd`/license.txt:/usr/local/freesurfer/license.txt 
 
 time singularity exec -e docker://brainlife/fsl:5.0.9 ./create_mask.sh $bold
 
-singularity exec -e docker://brainlife/mcr:neurodebian1604-r2017a ./compiled/main
+time singularity exec -e docker://brainlife/mcr:neurodebian1604-r2017a ./compiled/main
 if [ ! -s ./prf/r2.nii.gz ];
 then
 	echo "output missing"

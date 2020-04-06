@@ -10,6 +10,6 @@ end
 % load my own config.json
 config = loadjson('config.json');
 
-pRFLife(config.bold, config.stimimage, config.frameperiod, config.visual_angle_width, config.visual_angle_height, 'mask.nii.gz', config.prefitOnly);
+pRFLife("bold.nii.gz", "stim.nii.gz", config.frameperiod, config.visual_angle_width, config.visual_angle_height, 'mask.nii.gz', config.prefitOnly);
 
 end
