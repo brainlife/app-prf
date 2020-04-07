@@ -24,7 +24,7 @@ time singularity exec -e -B `pwd`/license.txt:/usr/local/freesurfer/license.txt 
 
 time singularity exec -e docker://brainlife/fsl:5.0.9 ./create_mask.sh $bold
 
-time singularity exec -e docker://brainlife/mcr:neurodebian1604-r2017a ./compiled/main
+time singularity exec -e docker://brainlife/mcr:r2019a ./compiled/main
 if [ ! -s ./prf/r2.nii.gz ];
 then
 	echo "output missing"
