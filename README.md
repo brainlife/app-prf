@@ -14,7 +14,7 @@
   <a href="LICENSE"><img src="https://img.shields.io/badge/License-MIT-lightgrey.svg" alt="MIT license"></a>
 </p>
 
-## 🧠 At a glance
+## At a glance
 
 <!-- brainlife-app:begin (generated from the App manifest; edit the manifest, not this block) -->
 
@@ -24,14 +24,14 @@ This app will compute a population receptive field (i.e. pRF) analysis on a give
 
 | | |
 |---|---|
-| 📥 **Inputs** | `neuro/func/task` · `neuro/stimulus` · `neuro/freesurfer` |
-| 📤 **Outputs** | `neuro/prf` |
-| 🐳 **Container** | `brainlife/freesurfer_on_mcr:6.0.0` |
-| ⚙️ **Resources** | 4 CPUs · 120 GB memory · 24 h walltime |
-| 🔑 **Requires** | `FREESURFER_LICENSE` |
-| 🔗 **Run it** | [doi.org/10.25663/bl.app.31](https://doi.org/10.25663/bl.app.31) |
+| **Inputs** | `neuro/func/task` · `neuro/stimulus` · `neuro/freesurfer` |
+| **Outputs** | `neuro/prf` |
+| **Container** | `brainlife/freesurfer_on_mcr:6.0.0` |
+| **Resources** | 4 CPUs · 120 GB memory · 24 h walltime |
+| **Requires** | `FREESURFER_LICENSE` |
+| **Run it** | [doi.org/10.25663/bl.app.31](https://doi.org/10.25663/bl.app.31) |
 
-#### 📥 Inputs
+#### Inputs
 
 | Input | Datatype | Required | Description |
 |---|---|---|---|
@@ -39,14 +39,14 @@ This app will compute a population receptive field (i.e. pRF) analysis on a give
 | `stimimage` | `neuro/stimulus` | yes | Stimulus aperture image (NIfTI) shown during the BOLD run, as in the HCP retinotopy datasets. Should have one frame per BOLD volume. |
 | `freesurfer` | `neuro/freesurfer` | yes | Freesurfer output used to create mask for visual cortex |
 
-#### 📤 Outputs
+#### Outputs
 
 | Output | Datatype | Description |
 |---|---|---|
 | `prf` | `neuro/prf` | pRF maps (polarAngle, eccentricity, rfWidth and r2 NIfTI images) plus FreeSurfer white, pial, sphere and inflated surfaces as VTK for visualisation. |
 
 <details>
-<summary><b>⚙️ Parameters</b> (4)</summary>
+<summary><b>Parameters</b> (4)</summary>
 
 | Parameter | Type | Default | Description |
 |---|---|---|---|
@@ -59,9 +59,9 @@ This app will compute a population receptive field (i.e. pRF) analysis on a give
 
 <!-- brainlife-app:end -->
 
-## 🚀 Running the App
+## Running the App
 
-### ☁️ On brainlife.io
+### On brainlife.io
 
 Open the App at [doi.org/10.25663/bl.app.31](https://doi.org/10.25663/bl.app.31), choose a BOLD time series from a retinotopic mapping run (`neuro/func/task`), the stimulus aperture image shown during it (`neuro/stimulus`, as in the HCP retinotopy datasets) and the subject's `neuro/freesurfer` output, set the parameters and press **Execute**. The pRF maps are archived as a `neuro/prf` dataset.
 
@@ -71,7 +71,7 @@ Open the App at [doi.org/10.25663/bl.app.31](https://doi.org/10.25663/bl.app.31)
 
 See the [mrTools pRF tutorial](http://gru.stanford.edu/doku.php/mrTools/tutorialsprf) for details of the model.
 
-### 💻 Locally
+### Locally
 
 You need [Singularity/Apptainer](https://apptainer.org/), [`jq`](https://jqlang.github.io/jq/) and a [FreeSurfer license](https://surfer.nmr.mgh.harvard.edu/registration.html). The App runs FreeSurfer 6.0.0 (`brainlife/freesurfer_on_mcr:6.0.0`), FSL 5.0.9 (`brainlife/fsl:5.0.9`) and the compiled MATLAB code (`brainlife/mcr:r2019a`). A full fit can need a large amount of memory and many hours.
 
@@ -99,7 +99,7 @@ You need [Singularity/Apptainer](https://apptainer.org/), [`jq`](https://jqlang.
 
 `main` symlinks the BOLD and stimulus images into the working directory, because mrTools decompresses `.nii.gz` inputs next to the original file. It then builds a fitting mask from a FreeSurfer `aparc+aseg` label resampled to the BOLD grid with FSL `flirt`, and runs `pRFLife.m`.
 
-## 📦 Outputs
+## Outputs
 
 ```text
 prf/
@@ -110,12 +110,12 @@ prf/
 └── surfaces/            FreeSurfer white, pial, sphere and inflated surfaces (lh/rh, VTK) for visualisation
 ```
 
-## 🩺 Troubleshooting
+## Troubleshooting
 
 - **`output missing`**: the fit did not write `prf/r2.nii.gz`. Check the logs, and make sure the stimulus image has one frame per BOLD volume.
 - **FreeSurfer license errors**: set the `FREESURFER_LICENSE` environment variable (brainlife.io provides it automatically).
 
-## 📚 Citing
+## Citing
 
 > [!TIP]
 > If you use this App in your work, please cite the App, the software it builds on and brainlife.io (below). GitHub's **Cite this repository** button gives the App citation in APA and BibTeX.
@@ -126,13 +126,13 @@ prf/
 - Hayashi S, Caron BA, Heinsfeld AS, et al. brainlife.io: a decentralized and open-source cloud platform to support neuroscience research. *Nature Methods* 21:809–813 (2024). [doi:10.1038/s41592-024-02237-2](https://doi.org/10.1038/s41592-024-02237-2)
 - Avesani P, McPherson B, Hayashi S, et al. The open diffusion data derivatives, brain data upcycling via integrated publishing of derivatives and reproducible open cloud services. *Scientific Data* 6:69 (2019). [doi:10.1038/s41597-019-0073-y](https://doi.org/10.1038/s41597-019-0073-y)
 
-## 👥 Authors
+## Authors
 
 - Justin Gardner
 
 **Contributors:** Soichi Hayashi
 
-## 💰 Funding
+## Funding
 
 [![Wellcome-226486/Z/22/Z](https://img.shields.io/badge/Wellcome-226486%2FZ%2F22%2FZ-purple.svg)](https://wellcome.org/)
 [![NIH-NINDS-U24NS140384](https://img.shields.io/badge/NIH_NINDS-U24NS140384-green.svg)](https://reporter.nih.gov/project-details/11261037)
@@ -151,6 +151,6 @@ prf/
 
 <sub>brainlife.io is publicly funded, and acknowledging that support helps keep it running. This App was developed with support from Wellcome, the U.S. National Institutes of Health (including the BRAIN Initiative BRAIN CONNECTS program: The Axonal Projectome EXchange, U24NS140384, and the Center for Mesoscale Connectomics, UM1NS132207) and the U.S. National Science Foundation.</sub>
 
-## ⚖️ License
+## License
 
 [MIT](LICENSE). mrTools, FreeSurfer and FSL are distributed under their own licenses.
